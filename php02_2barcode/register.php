@@ -73,7 +73,7 @@ searchBtn.addEventListener("click", function(event){
     searchBtn.textContent = "Searching...";
 
     // 3. Inject the user's typed value directly into the API URL string
-    const apiKey = "AIzaSyCZTtAjNPLdOUJw-WWf6aV9wXYYYouCIzY";
+    const apiKey = "";
     fetch(`https://www.googleapis.com/books/v1/volumes?q=${encodeURIComponent(userQuery)}&key=${apiKey}`)
         .then(function(response) {
             // 🔁 2. Handle 429 Gracefully right here
