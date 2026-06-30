@@ -1,0 +1,164 @@
+/* Soft, pastel-tinted color palette */
+body {
+    width: 100%;
+    max-width: 800px; /* Slightly wider to fit a grid of books */
+    margin: 0 auto;
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    color: #3e4e50;
+    background-color: #f7f9fa;
+}
+
+.main {
+    background: #ffffff;
+    margin: 20px auto;
+    padding: 30px 20px;
+    border-radius: 16px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05);
+}
+
+.title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 2px solid #edf2f4;
+    padding-bottom: 15px;
+    margin-bottom: 25px;
+}
+
+.title h1 {
+    font-size: 1.8rem;
+    color: #2b3a3c;
+    margin: 0;
+}
+
+/* Transform the book list into a beautiful grid */
+.bookCards {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 20px;
+    padding: 10px 0;
+}
+
+/* Styling for individual dynamic book cards */
+.bookCard {
+    background: #fdfdfd;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.04);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.bookCard:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+}
+
+.bookCard img {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+}
+
+/* Cute, rounded pastel buttons */
+button, .addBook {
+    background: #8bc34a; /* Soft bookish green */
+    color: #fff;
+    font-size: 1rem;
+    font-weight: bold;
+    border: none;
+    border-radius: 20px; /* Fully rounded pill shape */
+    padding: 10px 20px;   
+    transition: all 0.2s ease;
+}
+
+button:hover {
+    background: #7cb342;
+    transform: scale(1.03);
+    cursor: pointer;
+}
+
+/* Cleaner Form Styling */
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+input[type="text"],
+textarea {
+    padding: 12px;
+    border: 1px solid #ced4da;
+    border-radius: 8px;
+    background-color: #f8f9fa;
+    font-size: 1rem;
+    box-sizing: border-box;
+    font-family: inherit;
+}
+
+input[type="text"]:focus,
+textarea:focus {
+    border-color: #8bc34a;
+    outline: none;
+    background-color: #fff;
+}
+
+/* 1. Make the card the relative anchor point */
+.bookCard {
+    position: relative; 
+    background: #fdfdfd;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.04);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    height: 250px; /* Set a fixed height for the card grid items */
+}
+
+/* Ensure the image fills the entire card space behind the text */
+.bookCard img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+/* 2. Position the overlay directly on top of the image */
+.bookOverlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    top: 0; /* Cover the whole card */
+    
+    /* Soft dark gradient from transparent (top) to dark grey (bottom) for legibility */
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0.4) 60%, transparent 100%);
+    
+    /* Flexbox layout to push text to the bottom */
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end; 
+    padding: 15px;
+    color: #ffffff; /* White text looks great on the dark overlay */
+}
+
+/* Typography styles for the overlay elements */
+.bookTitle {
+    font-size: 1rem;
+    margin: 0 0 4px 0;
+    font-weight: bold;
+    line-height: 1.2;
+}
+
+.bookAuthor {
+    font-size: 0.85rem;
+    margin: 0 0 8px 0;
+    color: #e0e0e0;
+}
+
+.bookStatus {
+    align-self: flex-start; /* Keeps the pill from stretching full width */
+    font-size: 0.75rem;
+    background: rgba(255, 255, 255, 0.2);
+    padding: 2px 8px;
+    border-radius: 10px;
+    backdrop-filter: blur(4px); /* Trendy glassmorphism effect */
+}
