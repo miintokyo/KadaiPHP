@@ -3,7 +3,7 @@
 session_start();
 require_once 'db.php';
 
-$currentUser = $_SESSION['user'] ?? 'me';
+$currentUser = $_SESSION['user_name'] ?? 'me';
 
 if(!isset($_GET['id']) || empty($_GET['id']) || !is_numeric($_GET['id'])){
     header('Location: display.php');

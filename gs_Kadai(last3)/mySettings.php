@@ -42,8 +42,16 @@ About -->
         <?php else: ?>
             <div class="loginform">
             <h3>Log In:</h3>
-            <?php if(isset($_GET['error'])): ?>
-                <p class="error-msg" style="color: red;">Invalid User ID or Password</p>
+                <?php if (isset($_GET['error'])): ?>
+                    <?php if ($_GET['error'] === 'loginrequired'): ?>
+                        <p class="error-msg" style="color: red;">Please log in to add a book.</p>
+                    <?php elseif ($_GET['error'] === 'exists'): ?>
+                        <p class="error-msg" style="color: red;">That User ID is already taken.</p>
+                    <?php elseif ($_GET['error'] === 'empty'): ?>
+                        <p class="error-msg" style="color: red;">Please fill in both fields.</p>
+                    <?php else: ?>
+                        <p class="error-msg" style="color: red;">Invalid User ID or Password</p>
+                    <?php endif; ?>
                 <?php endif; ?>
 
                 <form id="loginform" action="login_act.php" method="POST">

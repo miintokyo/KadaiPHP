@@ -2,7 +2,8 @@
 session_start();
 require_once 'db.php';
 
-$currentUser = $_SESSION['username'] ?? 'me';
+// Get current user ID matching add-book.php
+$currentUser = $_SESSION['user_name'] ?? 'guest';
 
 function fetchBooks($pdo, $sql){
     try {
@@ -15,11 +16,17 @@ function fetchBooks($pdo, $sql){
 
 //2. Fetch my books
 // Now executing queries takes just one line each!
-$sql_mine = "SELECT id, title, author, owner, location, cover_image FROM booklist WHERE owner = 'me' ORDER BY id";
-$result_mine = fetchBooks($pdo, $sql_mine);
+$stmt = $pdo->prepare("SELECT id, title, author, owner, location, cover_image FROM booklist WHERE owner = ? ORDER BY id");
+$stmt->execute([$currentUser]);
+$result_mine = $stmt->fetchAll();
+
+//3. Fetch all books
+$sql_all = "SELECT id, title, author, owner, location, cover_image FROM booklist ORDER BY id DESC LIMIT 10";
+$result_all = fetchBooks($pdo, $sql_all);
 
 // 2. Helper to render the HTML cards cleanly using array iteration
 function renderBookCards($result, $currentUser, $showEdit = false, $fromSection = 'tana') {
+$isLoggedIn = isset($_SESSION['user_id']);    
     if (!empty($result)) {
         // loops over the whole array ($result), and on each pass gives you one book, stored in $book
         foreach ($result as $book) {
@@ -49,8 +56,11 @@ function renderBookCards($result, $currentUser, $showEdit = false, $fromSection 
             </div>
         <?php }
     } else {
-        echo "<p>No books in this category!</p>";
-    }
+        echo "No books in this category! <br>";
+        if (!$isLoggedIn){
+        echo "Please log in to view or add your own books!";
+        }
+    }                                
 }
 ?>
 
@@ -111,14 +121,23 @@ function renderBookCards($result, $currentUser, $showEdit = false, $fromSection 
         
         <h1>Me</h1>
         <div class="category">
-            <h2>Current Stock</h2>
-            <button id="addBtn">Add +</button>
+            <h2>My books</h2>
+            <?php if (isset($_SESSION['user_id'])): ?>
+                <button id="addBtn">Add +</button>
+            <?php endif; ?>            
         </div>
 
         <div id="interactive-search" class="viewport hidden" style="width: 100%; max-width: 400px;"></div>
 
         <div class="item-cards">
             <?php renderBookCards($result_mine, $currentUser, true, 'me'); ?>
+        </div>
+
+        <div class="category">
+            <h2>All Books</h2>
+        </div>
+        <div class="item-cards">
+            <?php renderBookCards($result_all, $currentUser, true, 'tana'); ?>
         </div>
 
     </div>
