@@ -1,0 +1,32 @@
+# Ignore sensitive configuration files
+config.php
+
+# Ignore environment files (if you use .env later)
+.env
+
+# Ignore OS junk files
+.DS_Store
+Thumbs.db
+
+
+# # Lines starting with '#' are comments
+
+# # Ignore a specific file
+# .env
+
+# # Ignore all files with a specific extension
+# *.log
+# *.tmp
+
+# # Ignore an entire directory (and everything inside it)
+# node_modules/
+# dist/
+
+# # Ignore a specific file inside any directory
+# **/cache.json
+
+# # Exceptions: Do NOT ignore a specific file even if matching a previous rule
+# !important.log
+
+# # Ignore files relative to the location of the .gitignore file only
+# /config.json
